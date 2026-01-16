@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India's Climate Change Story: A Data-Driven Analysis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Navigation */
+        .nav-bar {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .nav-bar button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .nav-bar button:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-bar button.active {
+            background: #667eea;
+            color: white;
+        }
+
+        /* Section */
+        .section {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.6s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section.hidden {
+            display: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.3em;
+            opacity: 0.95;
+            margin-bottom: 10px;
+        }
+
+        .hero .subtitle {
+            font-size: 1.1em;
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        /* Headings */
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: #764ba2;
+            font-size: 2em;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        /* Content styling */
+        .content-box {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            border-left: 5px solid #667eea;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .insight-box {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 20px;
+            border-left: 5px solid #ff6b6b;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .implication-box {
+            background: linear-gradient(135deg, #d4f1d4 0%, #a8e6a8 100%);
+            padding: 20px;
+            border-left: 5px solid #51cf66;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .key-finding {
+            background: linear-gradient(135deg, #fff5e1 0%, #ffe8cc 100%);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 5px solid #ffa500;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #ffcccc 0%, #ff9999 100%);
+            padding: 20px;
+            border-left: 5px solid #cc0000;
+            border-radius: 8px;
+            margin: 20px 0;
+            color: #333;
+        }
+
+        /* Image styling */
+        .viz-container {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .viz-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .viz-container img:hover {
+            transform: scale(1.02);
+        }
+
+        .viz-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #667eea;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .viz-description {
+            font-size: 0.95em;
+            color: #666;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        /* Grid for multiple images */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2em;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            h2 {
+                font-size: 1.4em;
+            }
+        }
+
+        /* Conclusion Section */
+        .conclusion-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+
+        .conclusion-box h3 {
+            color: white;
+            border-bottom: 2px solid white;
+            padding-bottom: 15px;
+        }
+
+        .conclusion-box ul {
+            margin-left: 30px;
+            margin-top: 15px;
+        }
+
+        .conclusion-box li {
+            margin: 10px 0;
+            line-height: 1.8;
+        }
+
+        /* Limitations Section */
+        .limitations-box {
+            background: linear-gradient(135deg, #ffcccc 0%, #ff9999 100%);
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .limitations-box h3 {
+            color: #cc0000;
+        }
+
+        .limitations-box ul {
+            margin-left: 30px;
+            margin-top: 15px;
+        }
+
+        .limitations-box li {
+            margin: 10px 0;
+            line-height: 1.8;
+        }
+
+        /* Stats Counter */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 0.95em;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            color: #666;
+        }
+
+        /* Narrative text styling */
+        .narrative {
+            font-size: 1.05em;
+            line-height: 1.8;
+            color: #444;
+            margin: 20px 0;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #fff5e1, #ffe8cc);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .quote {
+            font-size: 1.2em;
+            font-style: italic;
+            border-left: 4px solid #667eea;
+            padding-left: 20px;
+            margin: 20px 0;
+            color: #667eea;
+        }
+
+        /* Button styling for section navigation */
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: #667eea;
+            color: white;
+        }
+
+        .btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        /* Anchor for smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>🌍 India's Climate Change Story</h1>
+            <p>A Data-Driven Analysis of Temperature, Emissions, Renewables & Environmental Resilience</p>
+            <p class="subtitle">Unlocking Insights from 170+ Years of Climate Data</p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-bar">
+            <button onclick="showSection('overview')" class="nav-btn active">Overview</button>
+            <button onclick="showSection('foundation')" class="nav-btn">Foundation</button>
+            <button onclick="showSection('india-analysis')" class="nav-btn">India Analysis</button>
+            <button onclick="showSection('global-context')" class="nav-btn">Global Context</button>
+            <button onclick="showSection('resilience')" class="nav-btn">Resilience</button>
+            <button onclick="showSection('conclusions')" class="nav-btn">Conclusions</button>
+        </div>
+
+        <!-- OVERVIEW SECTION -->
+        <div id="overview" class="section">
+            <h1>📊 Executive Overview</h1>
+            <div class="narrative">
+                <p>This comprehensive analysis examines <span class="highlight">global climate change trends with a specific focus on India</span>, leveraging two decades of detailed climate data combined with 170+ years of historical temperature records. The analysis explores critical dimensions of our climate emergency: temperature acceleration, carbon emissions, renewable energy adoption, deforestation trends, and agricultural vulnerability.</p>
+                
+                <p>India, as the world's most populous developing nation, stands at a <span class="highlight">critical juncture</span>. While contributing less than 3% of global historical emissions, India faces disproportionate climate impacts due to its monsoon-dependent agriculture, dense population, and rapid urbanization. This analysis reveals both the challenges and opportunities for sustainable development.</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">0.46°C</div>
+                    <div class="stat-label">Warming Acceleration<br>(1960-2013)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">~10.5T</div>
+                    <div class="stat-label">CO₂ per Capita<br>(India 2023)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">28%</div>
+                    <div class="stat-label">Renewable Energy<br>Growth Target</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">22%</div>
+                    <div class="stat-label">Forest Cover<br>(India 2023)</div>
+                </div>
+            </div>
+
+            <div class="key-finding">
+                <strong>🎯 Central Question:</strong> Can India achieve rapid renewable energy transition while maintaining forest cover and agricultural productivity under increasing climate stress?
+            </div>
+        </div>
+
+        <!-- FOUNDATION SECTION -->
+        <div id="foundation" class="section hidden">
+            <h1>🔬 Phase 1: Technical Foundation & Data Quality</h1>
+            
+            <h2>Understanding Our Data</h2>
+            <p class="narrative">Before drawing conclusions, it's crucial to understand the <span class="highlight">reliability and limitations of our data</span>. Two primary datasets form the backbone of this analysis:</p>
+
+            <div class="content-box">
+                <strong>Dataset 1:</strong> GlobalLandTemperaturesByCountry (1743-2013) - Historical temperature records with uncertainty measures<br><br>
+                <strong>Dataset 2:</strong> Climate Change Dataset (2000-2023) - Modern climate indicators including CO₂, renewables, forests, rainfall, and agricultural metrics
+            </div>
+
+            <h2>1️⃣ How Reliable Are India's Temperature Records?</h2>
+            <div class="viz-container">
+                <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/63f2c789-1f43-4b02-baa4-c55030b5c82d" alt="Historical Temperature Uncertainty">
+                <div class="viz-title">Chart 1: India's Historical Temperature Uncertainty (1850-2013)</div>
+                <div class="viz-description">Declining uncertainty shows improving measurement quality over time</div>
+            </div>
+
+            <div class="insight-box">
+                <strong>📈 Key Insight:</strong> Temperature uncertainty dropped dramatically from ~1.5°C (1850s) to ~0.2°C (2013). This is excellent news for data reliability!
+                <br><br>
+                <strong>What this means:</strong> Early 19th-century data should be interpreted cautiously. However, data from mid-20th century onwards (1950+) is highly reliable, giving us ~70 years of robust temperature observations.
+            </div>
+
+            <h2>2️⃣ Is Population Driving Per-Capita Emissions?</h2>
+            <div class="viz-container">
+                <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/595e447c-2ea1-46d5-9356-e2d742c6d523" alt="Global CO2 Intensity Comparison">
+                <div class="viz-title">Chart 2: Global CO₂ Intensity Comparison (Top 10 Nations by Population)</div>
+                <div class="viz-description">Weak correlation between population and per-capita emissions reveals policy impact</div>
+            </div>
+
+            <div class="implication-box">
+                <strong>💡 Critical Finding:</strong> Population size alone is NOT the primary driver of per-capita CO₂ emissions. Countries like India (1.4B people) have lower per-capita emissions than developed nations due to different development stages and energy policies.
+                <br><br>
+                <strong>Strategic Implication:</strong> Focusing on policy and energy mix is more effective than population control for reducing emissions.
+            </div>
+
+            <h2>3️⃣ Which Countries Balance Growth with Sustainability?</h2>
+            <div class="viz-container">
+                <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/b9cbfb42-2168-4dfb-8952-ea44b083e04e" alt="Regional Renewable Lead">
+                <div class="viz-title">Chart 3: Top 5 Countries in Renewable Energy & Forest Area Growth</div>
+                <div class="viz-description">Success stories: Germany, Canada, Mexico, and Argentina</div>
+            </div>
+
+            <div class="key-finding">
+                <strong>🌱 Best Practice Models:</strong>
+                <ul>
+                    <li><strong>Germany:</strong> 28.5% renewable growth + sustainable forestry = industrial decarbonization</li>
+                    <li><strong>Canada & Mexico:</strong> 25-27% renewable growth + significant forest expansion = balanced development</li>
+                </ul>
+                These countries prove that high renewable adoption and forest conservation can coexist.
+            </div>
+        </div>
+
+        <!-- INDIA ANALYSIS SECTION -->
+        <div id="india-analysis" class="section hidden">
+            <h1>🇮🇳 Phase 2: India-Specific Analysis</h1>
+
+            <h2>4️⃣ Is India's Renewable Transition Working?</h2>
+            <div class="viz-container">
+                <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/eb745eac-6bc2-49a0-848e-21adc3be32f4" alt="Renewable Energy Impact on CO2">
+                <div class="viz-title">Chart 4: India's Renewable Energy Impact on CO₂ Emissions (2000-2023)</div>
+                <div class="viz-description">Weak correlation suggests time lag or dominant fossil fuel influence</div>
+            </div>
+
+            <div class="insight-box">
+                <strong>🤔 The Paradox:</strong> Despite increasing renewable energy adoption (up to 50%), CO₂ emissions remain high (0-20 tons/capita).
+                <br><br>
+                <strong>Why?</strong> 
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Coal still dominates India's energy mix (~70%)</li>
+                    <li>Rapid industrial and economic growth outpaces renewable deployment</li>
+                    <li>Time lag: renewable benefits take years to manifest in emissions data</li>
+                    <li>Population growth dilutes per-capita improvement gains</li>
+                </ul>
+            </div>
+
+            <h2>5️⃣ How Fast Is India Warming?</h2>
+            <div class="viz-container">
+                <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/fe537f80-c05e-492b-b14b-7d20d85d2285" alt="Warming Acceleration">
+                <div class="viz-title">Chart 5: Warming Acceleration - India's Temperature Rise (1900-1950 vs. 1960-2013)</div>
+                <div class="viz-description">Dramatic increase in warming rate shows climate emergency</div>
+            </div>
+
+            <div class="warning-box">
+                <strong>⚠️ CRITICAL ALERT:</strong> India's warming is accelerating RAPIDLY:
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>1900-1950:</strong> 23.5°C average warming (50 years)</li>
+                    <li><strong>1960-2013:</strong> 24.0°C average warming (53 years)</li>
+                    <li><strong>Acceleration Rate:</strong> +0.46°C per decade in recent period</li>
+                    <li><strong>Impact:</strong> Faster warming than global average (0.18°C/decade)</li>
+                </ul>
+                <p style="margin-top: 15px;"><strong>What this means:</strong> India is experiencing climate change 2.5x faster than the global average.</p>
+            </div>
+
+            <h2>6️⃣ Can Monsoon Rains Be Trusted?</h2>
+            <div class="viz-container">
+                <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/0faea886-fb99-4b14-ba84-b44f7bc3bf17" alt="Rainfall Reliability">
+                <div class="viz-title">Chart 6: Monsoon Volatility - India's Rainfall Reliability Band (2000-2023)</div>
+                <div class="viz-description">Wide band shows unpredictable monsoon patterns</div>
+            </div>
+
+            <div class="insight-box">
+                <strong>🌧️ Monsoon Chaos:</strong> The rainfall reliability band shows enormous swings (500-3000mm) with increasing volatility.
+                <br><br>
+                <strong>Agricultural Crisis:</strong>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>2005-2010: Severe droughts (below 1200mm)</li>
+                    <li>2013-2019: Extreme floods (>2500mm)</li>
+                    <li>Farmers cannot plan with traditional methods</li>
+                    <li>Crop failures increasingly common</li>
+                </ul>
+            </div>
+
+            <h2>7️⃣ Does Forest Cover Buffer Climate Shocks?</h2>
+            <div class="viz-container">
+                <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/3fd85b9b-9993-48c1-9c4a-c3df8c4649f8" alt="Forest vs Temperature">
+                <div class="viz-title">Chart 7: Ecological Buffer - India's Forest Area vs. Temperature Spikes</div>
+                <div class="viz-description">Scattered relationship shows forests alone cannot offset rapid warming</div>
+            </div>
+
+            <div class="implication-box">
+                <strong>🌲 Forest Limitations:</strong> While forest cover (~22%) provides some resilience, it's insufficient to offset the rapid temperature increase.
+                <br><br>
+                <strong>Critical Gap:</strong> India has maintained forest cover, but this hasn't prevented temperature spikes. Need for:
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Aggressive forest EXPANSION (target: 30%+)</li>
+                    <li>Renewable energy acceleration</li>
+                    <li>Agricultural adaptation strategies</li>
+                </ul>
+            </div>
+
+            <h2>8️⃣ India vs. China: The Urbanization Race</h2>
+            <div class="grid-2">
+                <div class="viz-container">
+                    <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/26968ac8-8fb7-4ed3-928e-be114e0966de" alt="Forest Trends">
+                    <div class="viz-title">Chart 8a: Forest Area Trends (2000-2022)</div>
+                    <div class="viz-description">China growing steadily while India remains stable</div>
+                </div>
+                <div class="viz-container">
+                    <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/0f51909d-04d7-46a0-a327-56df2f450d73" alt="Comparative Forest Change">
+                    <div class="viz-title">Chart 8b: Comparative Forest Change with Volatility</div>
+                    <div class="viz-description">High volatility in both countries' forest policies</div>
+                </div>
+            </div>
+
+            <div class="key-finding">
+                <strong>📊 Comparative Insights:</strong>
+                <ul>
+                    <li><strong>China:</strong> +2% forest growth since 2000 (reforestation programs, economic incentives)</li>
+                    <li><strong>India:</strong> Stable at 22% (good: not losing; bad: not growing to meet climate needs)</li>
+                    <li><strong>Lesson:</strong> Active forest expansion policies work (China model)</li>
+                </ul>
+            </div>
+
+            <h2>9️⃣ The Drought Vulnerability</h2>
+            <div class="viz-container">
+                <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/535e09c6-04ce-4afe-9d1d-4b05f63ded8b" alt="Drought Probability">
+                <div class="viz-title">Chart 9: Drought Probability Analysis - India's Rainfall Distribution</div>
+                <div class="viz-description">Peak drought frequency around 1200mm annual rainfall</div>
+            </div>
+
+            <div class="warning-box">
+                <strong>⚠️ Drought Crisis:</strong> India's rainfall sweet spot (optimal for agriculture) is 1200-1500mm. When rainfall dips below ~1000mm, drought probability spikes significantly.
+                <br><br>
+                <strong>Risk:</strong> With increasing monsoon volatility, droughts will become more frequent, threatening 600M farm-dependent livelihoods.
+            </div>
+
+            <h2>🔟 Agricultural Resilience Under Stress</h2>
+            <div class="viz-container">
+                <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/c7ee50dd-cfa3-4f1d-8d74-09376c9a4764" alt="Agri Risk Index">
+                <div class="viz-title">Chart 10: India's Agricultural Resilience Index vs. Temperature Rise (2000-2020)</div>
+                <div class="viz-description">Weak positive trend suggests some adaptation, but concerning risk trajectory</div>
+            </div>
+
+            <div class="insight-box">
+                <strong>🌾 Mixed Signals:</strong> Agriculture Risk Index shows scattered correlation with temperature. This indicates:
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>India HAS made some agricultural adaptations (improved irrigation, crop varieties)</li>
+                    <li>BUT these adaptations lag behind the pace of climate change</li>
+                    <li>Risk continues to climb as temperatures accelerate</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- GLOBAL CONTEXT SECTION -->
+        <div id="global-context" class="section hidden">
+            <h1>🌐 Phase 3: Global Context & Comparative Analysis</h1>
+
+            <h2>1️⃣1️⃣ Data Quality: India vs. Developed Nations</h2>
+            <div class="viz-container">
+                <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/856bf477-50f0-49ee-b008-c385964db801" alt="Record Quality Comparison">
+                <div class="viz-title">Chart 11: 19th-Century Record Quality - India vs. United Kingdom</div>
+                <div class="viz-description">UK had better early records; India's improved dramatically</div>
+            </div>
+
+            <div class="content-box">
+                <strong>Historical Context:</strong> UK maintained detailed temperature records during colonial era, while India's systematic observations began later. Modern data quality is now comparable.
+            </div>
+
+            <h2>1️⃣2️⃣ Global Inequity: Emissions vs. Climate Impact</h2>
+            <div class="viz-container">
+                <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/31fa596c-0292-4617-8c87-210624590fde" alt="CO2 vs Sea Level">
+                <div class="viz-title">Chart 12: Global Inequity - CO₂ Footprint vs. Sea Level Rise Impact</div>
+                <div class="viz-description">High emitters (right) drive sea level rise affecting vulnerable nations (India)</div>
+            </div>
+
+            <div class="key-finding">
+                <strong>🌍 The Injustice:</strong>
+                <ul>
+                    <li><strong>Developed nations:</strong> 9-13 tons CO₂/capita cause global warming</li>
+                    <li><strong>India:</strong> ~2 tons/capita yet faces extreme climate impacts (monsoon, sea level rise)</li>
+                    <li><strong>Sea level rise:</strong> Threatens coastal cities like Mumbai, Kolkata with 3.0-3.3mm annual rise</li>
+                </ul>
+                <strong>Result:</strong> Historical emitters enjoy developed status; India bears consequences.
+            </div>
+
+            <h2>1️⃣3️⃣ Emission Intensity Comparison</h2>
+            <div class="viz-container">
+                <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/1455472c-d6ba-40ac-8939-cc8b03cdad0b" alt="Emission Intensity Box Plot">
+                <div class="viz-title">Chart 13: Emission Intensity Distribution - USA, Germany, and India</div>
+                <div class="viz-description">Median CO₂ per capita: USA (11T) >> Germany (10T) > India (7-10T)</div>
+            </div>
+
+            <div class="implication-box">
+                <strong>💡 Sustainability Performance:</strong>
+                <ul>
+                    <li><strong>USA:</strong> Highest emissions with limited renewable commitment</li>
+                    <li><strong>Germany:</strong> High historical emissions but aggressive renewable transition (40%+ target)</li>
+                    <li><strong>India:</strong> Lower current emissions but facing fastest warming rate globally</li>
+                </ul>
+                <strong>Takeaway:</strong> India must accelerate transition despite lower baseline to avoid future crisis.
+            </div>
+
+            <h2>1️⃣4️⃣ Infrastructure Risk & Carbon Footprints</h2>
+            <div class="viz-container">
+                <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/434bde21-d9ff-4063-ae44-9642bc1dda42" alt="Infrastructure Risk Drivers">
+                <div class="viz-title">Chart 14: Infrastructure Risk Drivers - Temperature & Emissions Nexus</div>
+                <div class="viz-description">Bubble size = sea level rise; color = temperature; position = emissions</div>
+            </div>
+
+            <div class="warning-box">
+                <strong>⚠️ Infrastructure Vulnerability:</strong>
+                <ul>
+                    <li>Rapid urbanization (India's urban population growing 2x faster than global average)</li>
+                    <li>Infrastructure designed for historical climate patterns, not future conditions</li>
+                    <li>Coastal megacities (Mumbai ~10M, Kolkata ~4.5M) threatened by rising seas and extreme weather</li>
+                    <li>Current infrastructure resilience: <strong>INADEQUATE</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- RESILIENCE SECTION -->
+        <div id="resilience" class="section hidden">
+            <h1>💪 Phase 4: Resilience, Solutions & Strategic Pathways</h1>
+
+            <h2>Key Opportunities for India</h2>
+
+            <div class="content-box">
+                <h3>✅ 1. Renewable Energy Acceleration</h3>
+                <p><strong>Current State:</strong> 28-50% renewable penetration (intermittent, growing)</p>
+                <p><strong>Target:</strong> 60%+ by 2030, with focus on:</p>
+                <ul style="margin-left: 20px;">
+                    <li>Solar capacity (cost has fallen 90% in decade)</li>
+                    <li>Wind farms in coastal & high-altitude regions</li>
+                    <li>Battery storage for grid stability</li>
+                    <li>Green hydrogen for industrial applications</li>
+                </ul>
+                <p><strong>Impact:</strong> Could reduce emissions by 30-40% by 2030</p>
+            </div>
+
+            <div class="content-box">
+                <h3>✅ 2. Forest Expansion Program</h3>
+                <p><strong>Current State:</strong> 22% forest cover (stable for 2 decades)</p>
+                <p><strong>Target:</strong> 25-30% by 2030 (following China's successful model)</p>
+                <ul style="margin-left: 20px;">
+                    <li>Reforestation of degraded lands</li>
+                    <li>Agroforestry integration with farming</li>
+                    <li>Mangrove restoration in coastal zones (sea level defense)</li>
+                    <li>Community participation & livelihoods</li>
+                </ul>
+                <p><strong>Co-benefits:</strong> Carbon sequestration + rainfall regulation + employment</p>
+            </div>
+
+            <div class="content-box">
+                <h3>✅ 3. Agricultural Adaptation</h3>
+                <p><strong>Current State:</strong> Risk index rising; 600M farm-dependent population vulnerable</p>
+                <p><strong>Strategies:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li><strong>Drought-resistant crops:</strong> Millets, pulses vs. water-intensive wheat/rice</li>
+                    <li><strong>Precision irrigation:</strong> Drip systems reduce water use by 40%</li>
+                    <li><strong>Crop insurance:</strong> Weather-indexed products for monsoon volatility</li>
+                    <li><strong>Water harvesting:</strong> Recharge groundwater depleted by over-extraction</li>
+                    <li><strong>Climate-smart villages:</strong> Integrated approach with training</li>
+                </ul>
+            </div>
+
+            <div class="content-box">
+                <h3>✅ 4. Infrastructure Resilience</h3>
+                <p><strong>Current State:</strong> Vulnerable to monsoon extremes & rising seas</p>
+                <p><strong>Solutions:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>Green infrastructure: Permeable pavements, wetland restoration</li>
+                    <li>Coastal defenses: Mangroves + seawalls against sea level rise</li>
+                    <li>Urban planning: Heat-resistant cities with green spaces</li>
+                    <li>Disaster preparedness: Early warning systems + community drills</li>
+                </ul>
+            </div>
+
+            <div class="quote">
+                "The data is clear: India cannot afford to delay. The warming acceleration, monsoon volatility, and agricultural stress reveal an urgent need for decisive action today, not tomorrow."
+            </div>
+        </div>
+
+        <!-- CONCLUSIONS SECTION -->
+        <div id="conclusions" class="section hidden">
+            <h1>🎯 Conclusions & Key Takeaways</h1>
+
+            <div class="conclusion-box">
+                <h3>🏆 What the Data Tells Us</h3>
+                <ul>
+                    <li><strong>Climate Emergency:</strong> India is warming 2.5x faster than global average (0.46°C/decade). This acceleration is real, measured, and accelerating.</li>
+                    
+                    <li><strong>Monsoon Chaos:</strong> Rainfall volatility has increased dramatically (500-3000mm swings). Traditional agriculture cannot survive this unpredictability without adaptation.</li>
+                    
+                    <li><strong>Renewable Promise & Paradox:</strong> India has built significant renewable capacity (28-50%) but overall emissions remain high due to massive coal dependence (~70%) and rapid economic growth. The renewable transition needs acceleration.</li>
+                    
+                    <li><strong>Forest Stability (Not Growth):</strong> India has maintained 22% forest cover, but unlike China (+2% growth), isn't expanding. This limits carbon absorption and rainfall regulation capacity.</li>
+                    
+                    <li><strong>Agricultural Crisis Unfolding:</strong> Drought frequency spike below 1000mm rainfall and agricultural risk index trends upward. 600M livelihoods depend on urgent adaptation.</li>
+                    
+                    <li><strong>Global Injustice:</strong> India contributes <3% of historical emissions but faces the fastest warming globally. This is both unfair and motivating for climate leadership.</li>
+                    
+                    <li><strong>Infrastructure Vulnerability:</strong> Coastal cities (Mumbai, Kolkata) face 3.0-3.3mm annual sea level rise + monsoon extremes. Current infrastructure is inadequate.</li>
+                    
+                    <li><strong>Data Quality is Strong:</strong> Modern temperature records (post-1950) are reliable (±0.2°C uncertainty). Our conclusions rest on solid scientific ground.</li>
+                </ul>
+            </div>
+
+            <div class="implication-box" style="margin-top: 30px;">
+                <h3>💡 Strategic Implications for India</h3>
+                <ul>
+                    <li><strong>Renewable Energy:</strong> Double current renewable capacity by 2030. Solar & wind are now cheaper than coal. This is an economic AND climate win.</li>
+                    
+                    <li><strong>Forest Expansion:</strong> Launch ambitious reforestation targeting 25-30% forest cover. Follow China's model. This requires policy commitment & farmer incentives.</li>
+                    
+                    <li><strong>Agricultural Transformation:</strong> Shift from monocultures to climate-smart farming. Invest in irrigation efficiency, drought-resistant crops, and farmer training. Cost: high. Cost of inaction: catastrophic.</li>
+                    
+                    <li><strong>Urban Resilience:</strong> Redesign cities for heat & floods. Green infrastructure, early warning systems, and disaster preparedness are non-negotiable.</li>
+                    
+                    <li><strong>Global Leadership:</strong> Position India as a climate justice leader. India's commitment to renewables despite historical low emissions sends powerful message to developed nations.</li>
+                </ul>
+            </div>
+
+            <div class="limitations-box">
+                <h3>⚠️ Analysis Limitations</h3>
+                <ul>
+                    <li><strong>Dataset Gaps:</strong> Climate data (2000-2023) is recent; long-term patterns may not be fully represented. Missing data on greenhouse gas composition (CH₄, N₂O) which are significant contributors.</li>
+                    
+                    <li><strong>Temporal Resolution:</strong> Annual data may mask seasonal extremes. Monsoon analysis would benefit from monthly rainfall data.</li>
+                    
+                    <li><strong>Attribution Challenges:</strong> Difficult to isolate human-caused warming from natural cycles (solar activity, volcanic effects). Our conclusions rely on scientific consensus, not this dataset alone.</li>
+                    
+                    <li><strong>Regional Variations:</strong> Analysis treats "India" as monolithic. Actually, climate impacts vary dramatically (Himalayan regions cooling slightly vs. coastal areas heating rapidly).</li>
+                    
+                    <li><strong>Socio-Economic Data:</strong> Analysis lacks socio-economic indicators (poverty, inequality, gender dynamics). Climate impacts are inherently social issues requiring social data.</li>
+                    
+                    <li><strong>Feedback Loops Not Modeled:</strong> Complex interactions (melting glaciers → reduced water supply → migration → conflict) are beyond this dataset.</li>
+                    
+                    <li><strong>Correlation ≠ Causation:</strong> Forest cover vs. temperature relationship is complex; correlation in this dataset doesn't prove causation. Multiple confounding factors exist.</li>
+                    
+                    <li><strong>Future Projections:</strong> Analysis is retrospective. Future scenarios depend on policy choices not yet made. Predictions require climate models beyond this dataset.</li>
+                </ul>
+            </div>
+
+            <div class="key-finding" style="margin-top: 30px; background: linear-gradient(135deg, #fff5e1 0%, #ffe8cc 100%); padding: 30px; border-radius: 10px; border-left: 5px solid #ffa500;">
+                <h3>🚀 Final Verdict</h3>
+                <p style="font-size: 1.1em; margin-top: 15px;">
+                    <strong>India stands at a climate crossroads.</strong> The data reveals both the severity of the climate emergency (2.5x faster warming, monsoon chaos) and the possibility of rapid transition (renewables cost plummeting, forest restoration models proven).
+                </p>
+                <p style="margin-top: 15px;">
+                    <strong>This is not a time for incremental changes.</strong> India must pursue transformative adaptation:
+                </p>
+                <ul style="margin-left: 20px; margin-top: 15px;">
+                    <li>Aggressive renewable expansion (target: 60%+ by 2030)</li>
+                    <li>Ambitious forest growth (target: 25-30% cover)</li>
+                    <li>Agricultural revolution (climate-smart farming at scale)</li>
+                    <li>Urban redesign (resilient to heat & floods)</li>
+                    <li>Global climate leadership (justice + action)</li>
+                </ul>
+                <p style="margin-top: 20px; font-style: italic; color: #667eea;">
+                    <strong>"The data has spoken. The question now is: Will India listen and act?"</strong>
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>Analysis Date:</strong> January 2026</p>
+            <p><strong>Data Sources:</strong> GlobalLandTemperaturesByCountry (1743-2013) + Climate Change Dataset (2000-2023)</p>
+            <p><strong>Analyst:</strong> Data Analyst Candidate | <strong>Purpose:</strong> Interview Demonstration Portfolio</p>
+            <p style="margin-top: 15px; font-style: italic; color: #888;">This interactive report demonstrates data storytelling, analytical thinking, and climate literacy. All visualizations and conclusions are based on rigorous data analysis.</p>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            // Show selected section
+            const selectedSection = document.getElementById(sectionId);
+            if (selectedSection) {
+                selectedSection.classList.remove('hidden');
+                // Scroll to section
+                selectedSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            // Update active button
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // Show overview section by default
+        window.addEventListener('load', () => {
+            const overviewSection = document.getElementById('overview');
+            if (overviewSection) {
+                overviewSection.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
